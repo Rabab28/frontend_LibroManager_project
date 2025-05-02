@@ -1,20 +1,33 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router'
+import { useParams, useNavigate } from 'react-router'
 
 function BookDetail() {
     const {id} = useParams()
     const {book , setBook} = useState(null)
+    const navigate = useNavigate()
+    const [errorMsg, setErrorMsg] = useState('')
 
     async function getSingleBook() {
-        const responce = await axios.get(`http://127.0.0.1:8000/api/books/${id}`)
-        setBook(responce.data)
+        try{
+           const responce = await axios.get(`http://127.0.0.1:8000/api/books/${id}`)
+            setBook(responce.data) 
+        } catch (err){
+            console.log(err)
+            if (err.status === 404){
+                navigate('/not-found')
+            } else {
+                setErrorMsg("Oh, Something went Wrong !")
+            }
+        }
     }
 
     useEffect(() =>{ 
         getSingleBook()
         console.log(id)
     }, []) // empty array to stop loading for an infinite in the consoler
+    
+    if (errorMsg) return <h1>{errorMsg}</h1>
     if(!book) return <h1>Loading your Book...</h1>
 
   return (
