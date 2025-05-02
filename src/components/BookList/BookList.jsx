@@ -30,9 +30,10 @@ function BookList() {
                 {books.map(book => {
                     return(
                         <li key={book.id}>
-                            <p><img src={book.book_pic_url}/></p>
-                            <Link to={`/books/${book.id}`}>{book.title}</Link>
+                            <p>{book.book_pic_url}</p>
+                            <Link to={`/books/${book.id}`}>{book.book_title}</Link>
                             <p>{book.book_author}</p>
+                            
                         </li>
                     )
                 })}
