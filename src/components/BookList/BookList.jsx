@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios'
 
 import { useEffect, useState } from 'react'
-// import { Link } from 'react-router'
+import { Link } from 'react-router'
 
 function BookList() {
 
@@ -31,9 +31,8 @@ function BookList() {
                     return(
                         <li key={book.id}>
                             <p><img src={book.book_pic_url}/></p>
-                            <p>{book.book_title}</p>
+                            <Link to={`/books/${book.id}`}>{book.title}</Link>
                             <p>{book.book_author}</p>
-                            {/* <Link to={`/books/${book.id}`}>{book.title}</Link> */}
                         </li>
                     )
                 })}
