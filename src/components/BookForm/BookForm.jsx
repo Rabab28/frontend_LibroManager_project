@@ -4,8 +4,7 @@ function BookForm(props){
     return (
         <div>
             <h3>Add Your Book:</h3>
-            {/* onSubmit={props.handleSubmit} */}
-            <form >
+            <form onSubmit={props.handleSubmit}>
                 <div>
                     <label htmlFor="book_title">The Title:</label>
                     <input 
