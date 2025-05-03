@@ -12,7 +12,7 @@ function BookEdit() {
   const navigate = useNavigate()
   
   const [book_title, setBookTitle] = useState('')
-  const [book_auther, setBookAuther] = useState('')
+  const [book_author, setBookAuthor] = useState('')
   const [book_year, setBookYear] = useState('')
   const [book_no_of_pages, setBookNoOfPages] = useState('')
   const [book_language, setBookLanguage] = useState('')
@@ -22,7 +22,7 @@ function BookEdit() {
   async function getBookData() {
     const responce = await axios.get(`http://127.0.0.1:8000/api/books/${id}`)
     setBookTitle(responce.data.book_title)
-    setBookAuther(responce.data.book_auther)
+    setBookAuthor(responce.data.book_author)
     setBookYear(responce.data.book_year)
     setBookNoOfPages(responce.data.book_no_of_pages)
     setBookLanguage(responce.data.book_language)
@@ -34,8 +34,13 @@ function BookEdit() {
     getBookData()
   }, [])
 
-  function handleSubmit(){
-
+  async function handleSubmit(event){
+    event.preventDefault()
+        const response = await axios.patch(
+            `http://127.0.0.1:8000/api/books/${id}/`,
+            {book_title,book_author,book_year,book_no_of_pages,book_language,book_brief,book_pic_url}
+        )
+        navigate(`/books/${id}`)
   }
   return (
     <div>
@@ -44,8 +49,8 @@ function BookEdit() {
           book_title={book_title}
           setBookTitle={setBookTitle}
 
-          book_auther={book_auther}
-          setBookAuther={setBookAuther}
+          book_author={book_author}
+          setBookAuthor={setBookAuthor}
 
           book_year={book_year}
           setBookYear={setBookYear}
@@ -63,6 +68,7 @@ function BookEdit() {
           setBookPicUrl={setBookPicUrl}
 
           handleSubmit={handleSubmit}
+          titleVerb = "Edit "
         />
     </div>
   )

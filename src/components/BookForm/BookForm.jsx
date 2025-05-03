@@ -3,7 +3,7 @@ import React from "react";
 function BookForm(props){
     return (
         <div>
-            <h3>Add Your Book:</h3>
+            <h3>{props.titleVerb} The Book:</h3>
             <form onSubmit={props.handleSubmit}>
                 <div>
                     <label htmlFor="book_title">The Title:</label>
@@ -16,12 +16,12 @@ function BookForm(props){
                     />
                 </div>
                 <div>
-                    <label htmlFor="book_auther">The Author:</label>
+                    <label htmlFor="book_author">The Author:</label>
                     <input 
-                        id="book_auther"
-                        name="book_auther"
+                        id="book_author"
+                        name="book_author"
                         required
-                        value={props.book_auther}
+                        value={props.book_author}
                         onChange={(event => props.setBookAuther(event.target.value))}
                     />
                 </div>

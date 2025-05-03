@@ -26,6 +26,9 @@ function BookList() {
     return (
         <div>
             <h2>My Library:</h2>
+            <Link to={`/books/new`}>
+                <button>Add new Book</button>
+            </Link>
             <ul>
                 {books.map(book => {
                     return(
@@ -33,7 +36,6 @@ function BookList() {
                             <p>{book.book_pic_url}</p>
                             <Link to={`/books/${book.id}`}>{book.book_title}</Link>
                             <p>{book.book_author}</p>
-                            
                         </li>
                     )
                 })}

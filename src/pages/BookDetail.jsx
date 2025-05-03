@@ -1,7 +1,7 @@
 import React from "react";
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { useParams, useNavigate} from 'react-router'
+import { useParams, useNavigate, Link } from 'react-router'
 
 function BookDetail() {
     const {id} = useParams()
@@ -52,21 +52,28 @@ function BookDetail() {
 
   return (
     <div>
-      <h2>Book Detail:</h2>
-      <p>{book.book_pic_url}</p>
-      <p>{book.book_title}</p>
-      <p>{book.book_auther}</p>
-      <p>{book.book_year}</p>
-      <p>{book.book_no_of_pages}</p>
-      <p>{book.book_language}</p>
-      <p>{book.book_brief}</p>
-      {
-        deleteConfirm
-        ?
-        <button onClick={deleteBook}>Are You sure?</button>
-        :
-        <button onClick={ConfirmDeleteBook}>Delete</button>
-      }
+        <h2>Book Detail:</h2>
+        <p>{book.book_pic_url}</p>
+        <p>{book.book_title}</p>
+        <p>{book.book_auther}</p>
+        <p>{book.book_year}</p>
+        <p>{book.book_no_of_pages}</p>
+        <p>{book.book_language}</p>
+        <p>{book.book_brief}</p>
+        {
+            deleteConfirm
+            ?
+            <button onClick={deleteBook}>Are You sure?</button>
+            :
+            <button onClick={ConfirmDeleteBook}>Delete</button>
+        }
+        {/* Got it from https://bobbyhadz.com/blog/react-button-link */}
+        <Link to={`/books/${id}/edit`}>
+            <button>Edit</button>
+        </Link>
+        <Link to={`/`}>
+            <button>Return</button>
+        </Link>
     </div>
   )
 }

@@ -1,13 +1,14 @@
 import React from 'react'
 import { useState } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router'
 
 import BookForm from '../components/BookForm/BookForm'
 
 function BookAdd() {
 
     const [book_title, setBookTitle] = useState('')
-    const [book_auther, setBookAuther] = useState('')
+    const [book_author, setBookAuthor] = useState('')
     const [book_year, setBookYear] = useState('')
     const [book_no_of_pages, setBookNoOfPages] = useState('')
     const [book_language, setBookLanguage] = useState('')
@@ -17,7 +18,7 @@ function BookAdd() {
     async function handleSubmit(event){
         event.preventDefault()
         console.log('Handle Submit is running')
-        const payload = {book_title,book_auther, book_year, book_no_of_pages, book_language, book_brief, book_pic_url}
+        const payload = {book_title,book_author, book_year, book_no_of_pages, book_language, book_brief, book_pic_url}
         const url = 'http://127.0.0.1:8000/api/books/'
         const response = await axios.post(url, payload)
         console.log(response)
@@ -37,8 +38,8 @@ function BookAdd() {
                 book_title={book_title}
                 setBookTitle={setBookTitle}
 
-                book_auther={book_auther}
-                setBookAuther={setBookAuther}
+                book_author={book_author}
+                setBookAuthor={setBookAuthor}
 
                 book_year={book_year}
                 setBookYear={setBookYear}
@@ -56,6 +57,7 @@ function BookAdd() {
                 setBookPicUrl={setBookPicUrl}
 
                 handleSubmit={handleSubmit}
+                titleVerb = "Add "
             />
         </div>
     )
