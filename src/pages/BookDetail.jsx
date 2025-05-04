@@ -2,10 +2,9 @@ import React from "react";
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate, Link } from 'react-router'
-import AddToReadingForm from "../components/AddToReadingList/AddToReadingList";
 
 function BookDetail() {
-    const {id} = useParams()
+    const {id} = useParams() // Take the id from the url
     const navigate = useNavigate()
 
     const [book , setBook] = useState(null)
@@ -48,9 +47,20 @@ function BookDetail() {
         setDeleteConfirm(true)
     }
 
-    const handelAddBookToReadingList = (responceData => {
-        console.log("The book has been added to the list")
-    })
+    const handelAddBookToReadingList = ()=> {
+        axios.post(`http://127.0.0.1:8000/api/books/add-to-reading-list/${id}/`)
+        .then(responce => {
+            alert(responce.data.message)
+            navigate('http://127.0.0.1:8000/api/books/reading-list/')
+        })
+        .catch(error => {
+            console.error('Something went wrong during add the book', error)
+            alert("Something went wrong during add the book")
+            navigate('http://127.0.0.1:8000/api/books/reading-list/')
+        }
+        )
+    }
+
     if (errorMsg) return <h1>{errorMsg}</h1>
     if(!book) return <h1>Loading your Book...</h1>
 
@@ -64,7 +74,6 @@ function BookDetail() {
         <p>{book.book_no_of_pages}</p>
         <p>{book.book_language}</p>
         <p>{book.book_brief}</p>
-        <AddToReadingForm pk={id} onBookAdded={handelAddBookToReadingList}/>
         {
             deleteConfirm
             ?
@@ -72,6 +81,12 @@ function BookDetail() {
             :
             <button onClick={ConfirmDeleteBook}>Delete</button>
         }
+
+        {/* <AddToReadingList pk={id} onBookAdded={handelAddBookToReadingList}/> */}
+        <Link to={`/books/reading-list`}>
+            <button onClick={handelAddBookToReadingList}>Add To My Reading List</button>
+        </Link>
+
         {/* Got it from https://bobbyhadz.com/blog/react-button-link */}
         <Link to={`/books/${id}/edit`}>
             <button>Edit</button>
