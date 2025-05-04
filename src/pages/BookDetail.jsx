@@ -7,6 +7,7 @@ function BookDetail() {
     const {id} = useParams() // Take the id from the url
     const navigate = useNavigate()
 
+    const [status , setStatus] = useState('N')
     const [book , setBook] = useState(null)
     const [errorMsg, setErrorMsg] = useState('')
     const [deleteConfirm, setDeleteConfirm] = useState(false)
@@ -48,18 +49,23 @@ function BookDetail() {
     }
 
     const handelAddBookToReadingList = ()=> {
-        axios.post(`http://127.0.0.1:8000/api/books/add-to-reading-list/${id}/`)
+        axios.post(`http://127.0.0.1:8000/api/books/add-to-reading-list/${id}/`, {status: status})
         .then(responce => {
             alert(responce.data.message)
-            navigate('http://127.0.0.1:8000/api/books/reading-list/')
+            // navigate('/books/reading-list/')
         })
         .catch(error => {
             console.error('Something went wrong during add the book', error)
-            alert("Something went wrong during add the book")
-            navigate('http://127.0.0.1:8000/api/books/reading-list/')
+            if (error.responce && error.responce.status === 409) {
+                alert("The book is already exist in the reading list")
+            } else {
+                alert("Something went wrong during add the book")
+            }
+            navigate('/books/reading-list/')
         }
         )
     }
+
 
     if (errorMsg) return <h1>{errorMsg}</h1>
     if(!book) return <h1>Loading your Book...</h1>
@@ -83,9 +89,7 @@ function BookDetail() {
         }
 
         {/* <AddToReadingList pk={id} onBookAdded={handelAddBookToReadingList}/> */}
-        <Link to={`/books/reading-list`}>
             <button onClick={handelAddBookToReadingList}>Add To My Reading List</button>
-        </Link>
 
         {/* Got it from https://bobbyhadz.com/blog/react-button-link */}
         <Link to={`/books/${id}/edit`}>
