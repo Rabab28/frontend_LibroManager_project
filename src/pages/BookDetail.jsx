@@ -2,6 +2,7 @@ import React from "react";
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate, Link } from 'react-router'
+import AddToReadingForm from "../components/AddToReadingList/AddToReadingList";
 
 function BookDetail() {
     const {id} = useParams()
@@ -47,6 +48,9 @@ function BookDetail() {
         setDeleteConfirm(true)
     }
 
+    const handelAddBookToReadingList = (responceData => {
+        console.log("The book has been added to the list")
+    })
     if (errorMsg) return <h1>{errorMsg}</h1>
     if(!book) return <h1>Loading your Book...</h1>
 
@@ -60,6 +64,7 @@ function BookDetail() {
         <p>{book.book_no_of_pages}</p>
         <p>{book.book_language}</p>
         <p>{book.book_brief}</p>
+        <AddToReadingForm pk={id} onBookAdded={handelAddBookToReadingList}/>
         {
             deleteConfirm
             ?
