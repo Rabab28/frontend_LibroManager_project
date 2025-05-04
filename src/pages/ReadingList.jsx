@@ -16,15 +16,16 @@ const ReadingList = () => {
 
 
   const handelStatusChange = (itemId, newStatus) => {
-    axios.patch(`http://127.0.0.1:8000/api/books/reading-list-update/${itemId}`, {status: newStatus})
-    .then(response => {
-        setReadingList(readingList.map(item => 
-            item.id === itemId ? { ...item, status: response.data.status} : item
-        ))
-    })
-    .catch(error => {
-        console.error('An error occurred while updating the reading status:', error)
-    })
+    console.log('itemId in handelStatusChange:', itemId)
+    axios.patch(`http://127.0.0.1:8000/api/books/reading-list-update/${itemId}/`, {status: newStatus})
+        .then(response => {
+            setReadingList(readingList.map(item => 
+                item.id === itemId ? { ...item, status: response.data.status} : item
+            ))
+        })
+        .catch(error => {
+            console.error('An error occurred while updating the reading status:', error)
+        })
   }
   return (
     <div>
@@ -33,22 +34,28 @@ const ReadingList = () => {
         <p>The Reading list is Empty</p>
       ) : (
         <ul>
-          {readingList.map(item => (
-            <li key={item.book.id}>
-                {item.book.book_pic_url && ( <img src={item.book.book_pic_url}
-                
-                alt={item.book.book_title} /> )}
-                <span>{item.book.book_title}</span>
-                <select
-                value={item.status}
-                onChange={(e) => handelStatusChange(item.id, e.target.value)}
-                >
-                    <option value="N"> Not Read </option>
-                    <option value="R"> Reading </option>
-                    <option value="F"> Finished </option>
-                </select>
-            </li>
-          ))}
+          {readingList.map(item => {
+                console.log('itemId in map:', item.id)
+                return (
+                    <li key={item.id}>
+                        {item.image && ( 
+                            <img 
+                            src={item.image}
+                            alt={item.title} 
+                            /> 
+                        )}
+                        <span>{item.title}</span>
+                        <select
+                            value={item.status}
+                            onChange={(e) => handelStatusChange(item.id, e.target.value)}
+                        >
+                            <option value="N"> Not Read </option>
+                            <option value="R"> Reading </option>
+                            <option value="F"> Finished </option>
+                        </select>
+                    </li>
+                )
+            })}
         </ul>
       )}
     </div>
