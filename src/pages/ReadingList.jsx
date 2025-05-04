@@ -14,6 +14,18 @@ const ReadingList = () => {
       });
   }, []);
 
+
+  const handelStatusChange = (itemId, newStatus) => {
+    axios.patch(`http://127.0.0.1:8000/api/books/reading-list-update/${itemId}`, {status: newStatus})
+    .then(response => {
+        setReadingList(readingList.map(item => 
+            item.id === itemId ? { ...item, status: response.data.status} : item
+        ))
+    })
+    .catch(error => {
+        console.error('An error occurred while updating the reading status:', error)
+    })
+  }
   return (
     <div>
       <h2>Your Reading List</h2>
@@ -27,6 +39,14 @@ const ReadingList = () => {
                 
                 alt={item.book.book_title} /> )}
                 <span>{item.book.book_title}</span>
+                <select
+                value={item.status}
+                onChange={(e) => handelStatusChange(item.id, e.target.value)}
+                >
+                    <option value="N"> Not Read </option>
+                    <option value="R"> Reading </option>
+                    <option value="F"> Finished </option>
+                </select>
             </li>
           ))}
         </ul>
