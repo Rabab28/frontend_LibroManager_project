@@ -25,9 +25,7 @@ const Quotations = () => {
             .then(response => {
                 setMessage('The quotation added successfully!');
                 setSelectedBook('');
-                setBorrowerName('');
-                setBorrowDate('');
-                setTimeout(() => setMessage(''), 3000); // Hide the message after 3 seconds
+                setQuoteText('');
             })
             .catch(error => setMessage('An error occurred while adding the quotation.'));
     };
