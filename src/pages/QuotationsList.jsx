@@ -47,7 +47,6 @@ const QuotationsList = () => {
                             <tr key={quotation.id}>
                                 <td>{quotation.book_detail ? quotation.book_detail.book_title :'Unavailable'}</td>
                                 <td>{quotation.quote_text}</td>
-                        
                             </tr>
                         ))}
                     </tbody>
