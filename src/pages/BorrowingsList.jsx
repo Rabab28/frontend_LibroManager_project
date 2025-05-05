@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router';
 
 const BorrowingList = () => {
     const [borrowings, setBorrowings] = useState([]);
@@ -7,8 +8,8 @@ const BorrowingList = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        // جلب قائمة الاستعارات من API Django عند تحميل المكون
-        axios.get('http://127.0.0.1:8000/api/borrowings/') // استخدام نفس نقطة نهاية الإنشاء لجلب القائمة (GET)
+        // Get the borrowing list
+        axios.get('http://127.0.0.1:8000/api/borrowings/') 
             .then(response => {
                 setBorrowings(response.data);
                 setLoading(false);
@@ -18,6 +19,21 @@ const BorrowingList = () => {
                 setLoading(false);
             });
     }, []);
+
+
+    const handelDeleteBorrowing= (id) =>{
+      if (window.confirm('Are you sure you want to delete this borrowing?')) {
+        axios.get(`http://127.0.0.1:8000/api/borrowings/${id}/`) 
+            .then(response => {
+                // Update the list after the success delete
+                setBorrowings(borrowings.filter(borrowings => borrowings.id !== id));
+            })
+            .catch(error => {
+                console.error("Error deleting borrowing:", error)
+                alert("An error occurred while deleting the borrowing.")
+            })
+      }
+    }
 
     if (loading) {
         return <p>Loading borrowing list...</p>;
@@ -37,8 +53,9 @@ const BorrowingList = () => {
                     <thead>
                         <tr>
                             <th>Book Title: </th>
-                            <th>Borrower Name: </th>
+                            <th>Borrower's Name: </th>
                             <th>Borrow Date: </th>
+                            <th> </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -47,6 +64,7 @@ const BorrowingList = () => {
                                 <td>{borrowing.book.book_title ? borrowing.book.book_title :'Unavailable'}</td>
                                 <td>{borrowing.borrower_name}</td>
                                 <td>{new Date(borrowing.borrow_date).toLocaleDateString()}</td>
+                                <td><Link to={`/edit-borrowings/${borrowing.id}`}>Edit</Link>  <button onClick={()=> handelDeleteBorrowing(borrowing.id)}>Delete</button></td> 
                             </tr>
                         ))}
                     </tbody>

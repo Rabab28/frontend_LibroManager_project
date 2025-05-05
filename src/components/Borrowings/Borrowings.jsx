@@ -25,18 +25,18 @@ const Borrowings = () => {
 
         axios.post('http://127.0.0.1:8000/api/borrowings/', newBorrowing)
             .then(response => {
-                setMessage('تمت إضافة الاستعارة بنجاح!');
+                setMessage('The borrowing added successfully!');
                 setSelectedBook('');
                 setBorrowerName('');
                 setBorrowDate('');
-                setTimeout(() => setMessage(''), 3000); // إخفاء الرسالة بعد 3 ثوانٍ
+                setTimeout(() => setMessage(''), 3000); // Hide the message after 3 seconds
             })
-            .catch(error => setMessage('حدث خطأ أثناء إضافة الاستعارة.'));
+            .catch(error => setMessage('An error occurred while adding the borrowing.'));
     };
 
     return (
         <div>
-            <h2>إضافة استعارة كتاب</h2>
+            <h2>Add a book borrwoing</h2>
             {message && <p>{message}</p>}
             <form onSubmit={handleSubmit}>
                 <div>
@@ -54,7 +54,7 @@ const Borrowings = () => {
                     </select>
                 </div>
                 <div>
-                    <label htmlFor="borrowerName">اسم المستعير:</label>
+                    <label htmlFor="borrowerName">Borrower's name:</label>
                     <input
                         type="text"
                         id="borrowerName"
@@ -64,7 +64,7 @@ const Borrowings = () => {
                     />
                 </div>
                 <div>
-                    <label htmlFor="borrowDate">تاريخ الاستعارة:</label>
+                    <label htmlFor="borrowDate">Borrowing date:</label>
                     <input
                         type="date"
                         id="borrowDate"
@@ -73,7 +73,7 @@ const Borrowings = () => {
                         required
                     />
                 </div>
-                <button type="submit">إضافة استعارة</button>
+                <button type="submit">Add</button>
             </form>
         </div>
     );
