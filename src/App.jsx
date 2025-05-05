@@ -15,7 +15,7 @@ import EditBorrowing from './components/EditBorrowing/EditBorrowing';
 import Quotations from './components/Quotations/Quotations';
 import QuotationsList from './pages/QuotationsList';
 import EditQuotation from './components/EditQuotation/EditQuotation';
-
+import Signup from './pages/Signup';
 
 
 function App() {
@@ -23,7 +23,8 @@ function App() {
     <Router>
       <Routes>
         <Route path='/' element={<My_library />}/>
-        
+        <Route path='/signup' element={<Signup />}/>
+
         <Route path='/books/new' element={<BookAdd />}/>
         <Route path='/books/:id' element={<BookDetail />}/>
         <Route path='/books/:id/edit' element={<BookEdit />}/>
