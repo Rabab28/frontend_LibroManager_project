@@ -14,6 +14,8 @@ import EditBorrowing from './components/EditBorrowing/EditBorrowing';
 
 import Quotations from './components/Quotations/Quotations';
 import QuotationsList from './pages/QuotationsList';
+import EditQuotation from './components/EditQuotation/EditQuotation';
+
 
 
 function App() {
@@ -33,6 +35,7 @@ function App() {
 
         <Route path='/quotations' element={<Quotations />}/>
         <Route path='/quotations-list' element={<QuotationsList />}/>
+        <Route path='/edit-quotations/:id' element={<EditQuotation />}/>
 
      </Routes>
     </Router> 
