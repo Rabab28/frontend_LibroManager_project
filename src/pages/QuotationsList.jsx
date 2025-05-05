@@ -45,7 +45,7 @@ const QuotationsList = () => {
                     <tbody>
                         {quotations.map(quotation => (
                             <tr key={quotation.id}>
-                                <td>{quotation.book.book_title ? quotation.book.book_title :'Unavailable'}</td>
+                                <td>{quotation.book_detail ? quotation.book_detail.book_title :'Unavailable'}</td>
                                 <td>{quotation.quote_text}</td>
                         
                             </tr>

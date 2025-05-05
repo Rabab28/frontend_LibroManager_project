@@ -61,7 +61,7 @@ const BorrowingList = () => {
                     <tbody>
                         {borrowings.map(borrowing => (
                             <tr key={borrowing.id}>
-                                <td>{borrowing.book.book_title ? borrowing.book.book_title :'Unavailable'}</td>
+                                <td>{borrowing.book_detail ? borrowing.book_detail.book_title :'Unavailable'}</td>
                                 <td>{borrowing.borrower_name}</td>
                                 <td>{new Date(borrowing.borrow_date).toLocaleDateString()}</td>
                                 <td><Link to={`/edit-borrowings/${borrowing.id}`}>

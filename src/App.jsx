@@ -13,6 +13,7 @@ import BorrowingList from './pages/BorrowingsList';
 import EditBorrowing from './components/EditBorrowing/EditBorrowing';
 
 import Quotations from './components/Quotations/Quotations';
+import QuotationsList from './pages/QuotationsList';
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
         <Route path='/edit-borrowings/:id' element={<EditBorrowing />}/>
 
         <Route path='/quotations' element={<Quotations />}/>
+        <Route path='/quotations-list' element={<QuotationsList />}/>
 
      </Routes>
     </Router> 
