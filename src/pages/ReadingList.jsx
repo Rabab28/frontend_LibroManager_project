@@ -2,15 +2,11 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const ReadingList = () => {
-    console.log('ReadingList Component rendered')
   const [readingList, setReadingList] = useState([]);
 
   useEffect(() => {
-    console.log('Fetching rending list... ')
     axios.get('http://127.0.0.1:8000/api/books/reading-list/')
       .then(response => {
-        console.log('Reading list fetched: ')
-
         setReadingList(response.data);
       })
       .catch(error => {
@@ -20,7 +16,6 @@ const ReadingList = () => {
 
 
   const handelStatusChange = (itemId, newStatus) => {
-    console.log('itemId in handelStatusChange:', itemId)
     axios.patch(`http://127.0.0.1:8000/api/books/reading-list-update/${itemId}/`, {status: newStatus})
         .then(response => {
             // setReadingList(readingList.map(item => 

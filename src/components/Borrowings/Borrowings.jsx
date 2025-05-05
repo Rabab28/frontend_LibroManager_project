@@ -9,7 +9,7 @@ const Borrowings = () => {
     const [message, setMessage] = useState('');
 
     useEffect(() => {
-        // جلب قائمة الكتب من API Django عند تحميل المكون
+        // Get the list of the books
         axios.get('http://127.0.0.1:8000/api/books/')
             .then(response => setBooks(response.data))
             .catch(error => console.error('Error fetching books:', error));
@@ -40,14 +40,14 @@ const Borrowings = () => {
             {message && <p>{message}</p>}
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor="book">الكتاب:</label>
+                    <label htmlFor="book">The book: </label>
                     <select
                         id="book"
                         value={selectedBook}
                         onChange={(e) => setSelectedBook(e.target.value)}
                         required
                     >
-                        <option value="">اختر كتابًا</option>
+                        <option value="">Choose a book:</option>
                         {books.map(book => (
                             <option key={book.id} value={book.id}>{book.book_title}</option>
                         ))}

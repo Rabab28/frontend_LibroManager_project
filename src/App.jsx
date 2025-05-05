@@ -8,6 +8,7 @@ import BookAdd from './pages/BookAdd';
 import ReadingList from './pages/ReadingList';
 import Borrowings from './components/Borrowings/Borrowings';
 import BorrowingList from './pages/BorrowingsList';
+import EditBorrowing from './components/EditBorrowing/EditBorrowing';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path='/books/reading-list' element={<ReadingList />}/>
         <Route path='/borrowings' element={<Borrowings />}/>
         <Route path='/borrowings-list' element={<BorrowingList />}/>
+        <Route path='/edit-borrowings/:id' element={<EditBorrowing />}/>
      </Routes>
     </Router> 
   )
