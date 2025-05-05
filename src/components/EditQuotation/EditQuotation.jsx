@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom'; // إذا كنت تستخدم React Router
+import { useParams, useNavigate } from 'react-router-dom'; 
 
 const EditQuotation = () => {
     const { id } = useParams(); // To get the id from the URL
@@ -17,7 +17,7 @@ const EditQuotation = () => {
         // Get the borrowing data 
         axios.get(`http://127.0.0.1:8000/api/quotations/${id}/`)
             .then(response => {
-                setBorrowingData(response.data)
+                setQuotationData(response.data)
             })
             .catch(error => 
                 setError(error)
@@ -74,7 +74,7 @@ const EditQuotation = () => {
                     <select
                         id="book"
                         name="book"
-                        value={quotationData.book? quotationData.book.id : ''}
+                        value={quotationData.book || ''}
                         onChange={handleBookChange}
                     >
                         <option value="">Choose a book:</option>
@@ -84,11 +84,11 @@ const EditQuotation = () => {
                     </select>
                 </div>
                 <div>
-                    <label htmlFor="quoteText">Quote Text: </label>
+                    <label htmlFor="quote_text">Quote Text: </label>
                     <input
                         type="text"
-                        id="quoteText"
-                        name="quoteText"
+                        id="quote_text"
+                        name="quote_text"
                         value={quotationData.quote_text}
                         onChange={handleChange}
                     />

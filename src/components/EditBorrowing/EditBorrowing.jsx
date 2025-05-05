@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom'; // إذا كنت تستخدم React Router
+import { useParams, useNavigate } from 'react-router-dom'; 
 
 const EditBorrowing = () => {
     const { id } = useParams(); // To get the id from the URL
@@ -75,7 +75,7 @@ const EditBorrowing = () => {
                     <select
                         id="book"
                         name="book"
-                        value={borrowingData.book? borrowingData.book.id : ''}
+                        value={borrowingData.book || ''}
                         onChange={handleBookChange}
                     >
                         <option value="">Choose a book:</option>

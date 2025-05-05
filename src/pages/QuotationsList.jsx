@@ -20,6 +20,21 @@ const QuotationsList = () => {
             });
     }, []);
 
+
+    const handelDeleteQuotation= (id) =>{
+        if (window.confirm('Are you sure you want to delete this quotation?')) {
+          axios.delete(`http://127.0.0.1:8000/api/quotations/${id}/`) 
+              .then(response => {
+                  // Update the list after the success delete
+                  setQuotations(quotations.filter(quotation => quotation.id !== id));
+              })
+              .catch(error => {
+                  console.error("Error deleting quotation:", error)
+                  alert("An error occurred while deleting the quotation.")
+              })
+        }
+      }
+
     if (loading) {
         return <p>Loading quotations list...</p>;
     }
@@ -47,6 +62,8 @@ const QuotationsList = () => {
                             <tr key={quotation.id}>
                                 <td>{quotation.book_detail ? quotation.book_detail.book_title :'Unavailable'}</td>
                                 <td>{quotation.quote_text}</td>
+                                <td><Link to={`/edit-quotations/${quotation.id}`}>
+                                <button>Edit</button></Link>     <button onClick={()=> handelDeleteQuotation(quotation.id)}>Delete</button></td> 
                             </tr>
                         ))}
                     </tbody>
