@@ -23,10 +23,10 @@ const BorrowingList = () => {
 
     const handelDeleteBorrowing= (id) =>{
       if (window.confirm('Are you sure you want to delete this borrowing?')) {
-        axios.get(`http://127.0.0.1:8000/api/borrowings/${id}/`) 
+        axios.delete(`http://127.0.0.1:8000/api/borrowings/${id}/`) 
             .then(response => {
                 // Update the list after the success delete
-                setBorrowings(borrowings.filter(borrowings => borrowings.id !== id));
+                setBorrowings(borrowings.filter(borrowing => borrowing.id !== id));
             })
             .catch(error => {
                 console.error("Error deleting borrowing:", error)
@@ -52,9 +52,9 @@ const BorrowingList = () => {
                 <table>
                     <thead>
                         <tr>
-                            <th>Book Title: </th>
-                            <th>Borrower's Name: </th>
-                            <th>Borrow Date: </th>
+                            <th>Book Title:</th>
+                            <th>Borrower's Name:</th>
+                            <th>Borrow Date:</th>
                             <th> </th>
                         </tr>
                     </thead>
@@ -64,7 +64,8 @@ const BorrowingList = () => {
                                 <td>{borrowing.book.book_title ? borrowing.book.book_title :'Unavailable'}</td>
                                 <td>{borrowing.borrower_name}</td>
                                 <td>{new Date(borrowing.borrow_date).toLocaleDateString()}</td>
-                                <td><Link to={`/edit-borrowings/${borrowing.id}`}>Edit</Link>  <button onClick={()=> handelDeleteBorrowing(borrowing.id)}>Delete</button></td> 
+                                <td><Link to={`/edit-borrowings/${borrowing.id}`}>
+                                <button>Edit</button></Link>     <button onClick={()=> handelDeleteBorrowing(borrowing.id)}>Delete</button></td> 
                             </tr>
                         ))}
                     </tbody>

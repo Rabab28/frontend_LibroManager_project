@@ -85,7 +85,7 @@ const EditBorrowing = () => {
                     </select>
                 </div>
                 <div>
-                    <label htmlFor="borrower_name">Borrower name: </label>
+                    <label htmlFor="borrower_name">Borrower's Name: </label>
                     <input
                         type="text"
                         id="borrower_name"
