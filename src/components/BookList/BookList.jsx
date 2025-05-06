@@ -3,6 +3,7 @@ import axios from 'axios'
 
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
+import { authorizedRequest } from '../../lib/api'
 
 function BookList() {
 
@@ -10,17 +11,17 @@ function BookList() {
 
     async function getAllBooks() {
         try{
-            const response = await axios.get('http://127.0.0.1:8000/api/books/')
+            const response = await authorizedRequest("get", "/books/")
             console.log(response.data)
             setBooks(response.data)  
         } catch (err) {
-            console.error('Error fetching posts:', err)
-        }
-        
+            console.error("Error fetching books:", err)
+        }    
     }
 
     useEffect(()=> {
-        getAllBooks() }, [])
+        getAllBooks() 
+    }, [])
     
 
     return (

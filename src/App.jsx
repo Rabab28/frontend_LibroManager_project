@@ -15,23 +15,26 @@ import EditBorrowing from './components/EditBorrowing/EditBorrowing';
 import Quotations from './components/Quotations/Quotations';
 import QuotationsList from './pages/QuotationsList';
 import EditQuotation from './components/EditQuotation/EditQuotation';
+
 import Signup from './pages/Signup';
+import Login from './pages/Login';
+import NotFound from './pages/NotFound';
 
 
 function App() {
-  function logout(){
-    localStorage.removeItem('access_token')
-    localStorage.removeItem('refresh_token')
-    window.location.href = '/'
-  }
+
+    function logout(){
+      localStorage.removeItem('access_token')
+      localStorage.removeItem('refresh_token')
+      window.location.href = '/'
+    }
 
   return(   
     <Router>
+       <nav>
+        <button onClick={logout}>Log Out</button>
+      </nav>
       <Routes>
-        <nav>
-          <button onClick={logout}>Log Out</button>
-        </nav>
-
         <Route path='/' element={<My_library />}/>
         <Route path='/signup' element={<Signup />}/>
         <Route path='/login' element={<Login />} />
