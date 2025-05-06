@@ -8,6 +8,22 @@ function setTokens(access,refresh) {
     if (access) localStorage.setItem('access_token', access)
     if (refresh) localStorage.setItem('refresh_token', refresh)
 }
+
+async function refreshAccessToken() {
+    // check if there is a refresh token
+    // If there is make the api call to refresh the token
+
+    const refreshToken = localStorage.getItem('refresh_token')
+    if (refreshToken) {
+        const response = await axios.post(
+            `${baseUrl}/token/refresh/`,
+            { refresh: refreshToken }
+        )
+        setTokens({access: response.data.access})
+        console.log('access token has been refreshed')
+    }
+}
+
 // function to deal with the token
 // async function authorizedRequest(method, url, data)
 async function authorizedRequest(method, url, data = null) {
