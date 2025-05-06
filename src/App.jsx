@@ -19,11 +19,22 @@ import Signup from './pages/Signup';
 
 
 function App() {
+  function logout(){
+    localStorage.removeItem('access_token')
+    localStorage.removeItem('refresh_token')
+    window.location.href = '/'
+  }
+
   return(   
     <Router>
       <Routes>
+        <nav>
+          <button onClick={logout}>Log Out</button>
+        </nav>
+
         <Route path='/' element={<My_library />}/>
         <Route path='/signup' element={<Signup />}/>
+        <Route path='/login' element={<Login />} />
 
         <Route path='/books/new' element={<BookAdd />}/>
         <Route path='/books/:id' element={<BookDetail />}/>
@@ -38,6 +49,8 @@ function App() {
         <Route path='/quotations' element={<Quotations />}/>
         <Route path='/quotations-list' element={<QuotationsList />}/>
         <Route path='/edit-quotations/:id' element={<EditQuotation />}/>
+
+        <Route path='*' element={<NotFound />}/>
 
      </Routes>
     </Router> 
