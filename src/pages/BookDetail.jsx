@@ -2,6 +2,7 @@ import React from "react";
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate, Link } from 'react-router'
+import { authorizedRequest } from '../lib/api'
 
 function BookDetail() {
     const {id} = useParams() // Take the id from the url
@@ -13,7 +14,11 @@ function BookDetail() {
     const [deleteConfirm, setDeleteConfirm] = useState(false)
 
     async function getSingleBook() {
+        // get the book from the API
+        // put the book in state
         try{
+            // make the login in the background
+            const response = await authorizedRequest('get', `/books/${id}`)
             const responce = await axios.get(`http://127.0.0.1:8000/api/books/${id}`)
             setBook(responce.data) 
         } catch (err){
