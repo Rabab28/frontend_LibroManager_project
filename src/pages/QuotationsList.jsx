@@ -1,25 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router';
+import { authorizedRequest } from '../lib/api';
 
 const QuotationsList = () => {
     const [quotations, setQuotations] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    useEffect(() => {
-        // Get the quotations list
-        axios.get('http://127.0.0.1:8000/api/quotations/') 
-            .then(response => {
-                setQuotations(response.data);
-                setLoading(false);
-            })
-            .catch(error => {
-                setError(error);
-                setLoading(false);
-            });
-    }, []);
+    // Get the quotations list
+    async function getAllQuotations() {
+        try {
+            const response = await authorizedRequest('get', '/quotations/')
+            setQuotations(response.data);
+            setLoading(false);
+        } catch (err) {
+            console.error('Error fetching posts:', err)
+            setLoading(false);
+        }
+    }
 
+    useEffect(() => {
+        getAllQuotations()
+    }, [])
 
     const handelDeleteQuotation= (id) =>{
         if (window.confirm('Are you sure you want to delete this quotation?')) {

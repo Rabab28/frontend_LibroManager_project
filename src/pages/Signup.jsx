@@ -1,7 +1,7 @@
 import React from 'react'
 import {useState} from 'react'
 import axios from 'axios'
-
+import { Link } from 'react-router'
 import { setTokens } from '../lib/api'
 
 function Signup() {
@@ -28,7 +28,9 @@ function Signup() {
     
   return (
     <div>
-        <h1>Sign up To The App: </h1>
+        <h1>Welcome to LibroManager App: </h1>
+        <h1>Sign Up: </h1>
+
         <form onSubmit={handleSubmit}>
             <div>
                 <input
@@ -58,6 +60,9 @@ function Signup() {
                 />
             </div>
             <button type='submit'>Sign Up</button>
+            <Link to={'/login'}>
+                <button>Login</button>
+            </Link>
         </form>
     </div>
   )

@@ -3,6 +3,7 @@ import axios from 'axios'
 
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router'
+import { authorizedRequest } from '../lib/api'
 
 import BookForm from '../components/BookForm/BookForm'
 
@@ -20,7 +21,7 @@ function BookEdit() {
   const [book_pic_url, setBookPicUrl] = useState('')
 
   async function getBookData() {
-    const responce = await axios.get(`http://127.0.0.1:8000/api/books/${id}`)
+    const responce = await authorizedRequest('get', `/books/${id}/`)
     setBookTitle(responce.data.book_title)
     setBookAuthor(responce.data.book_author)
     setBookYear(responce.data.book_year)
@@ -36,10 +37,8 @@ function BookEdit() {
 
   async function handleSubmit(event){
     event.preventDefault()
-        const response = await axios.patch(
-            `http://127.0.0.1:8000/api/books/${id}/`,
-            {book_title,book_author,book_year,book_no_of_pages,book_language,book_brief,book_pic_url}
-        )
+        const response = await authorizedRequest('patch', `/books/${id}/`,
+            {book_title,book_author,book_year,book_no_of_pages,book_language,book_brief,book_pic_url})
         navigate(`/books/${id}`)
   }
   return (

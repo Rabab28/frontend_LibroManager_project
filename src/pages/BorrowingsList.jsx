@@ -1,24 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router';
+import { authorizedRequest } from '../lib/api';
 
 const BorrowingList = () => {
     const [borrowings, setBorrowings] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    // Get the borrowing list
+    async function getAllBorrowings() {
+        try {
+            const response = await authorizedRequest('get', '/borrowings/')
+            setBorrowings(response.data);
+            setLoading(false);
+        } catch (err) {
+            console.error('Error fetching posts:', err)
+            setLoading(false);
+        }
+    }
+
     useEffect(() => {
-        // Get the borrowing list
-        axios.get('http://127.0.0.1:8000/api/borrowings/') 
-            .then(response => {
-                setBorrowings(response.data);
-                setLoading(false);
-            })
-            .catch(error => {
-                setError(error);
-                setLoading(false);
-            });
-    }, []);
+        getAllBorrowings()
+    }, [])
 
 
     const handelDeleteBorrowing= (id) =>{

@@ -1,5 +1,4 @@
 import React from 'react'
-import axios from 'axios'
 
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
@@ -12,7 +11,6 @@ function BookList() {
     async function getAllBooks() {
         try{
             const response = await authorizedRequest("get", "/books/")
-            console.log(response.data)
             setBooks(response.data)  
         } catch (err) {
             console.error("Error fetching books:", err)

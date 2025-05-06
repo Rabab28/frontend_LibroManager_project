@@ -23,17 +23,8 @@ import NotFound from './pages/NotFound';
 
 function App() {
 
-    function logout(){
-      localStorage.removeItem('access_token')
-      localStorage.removeItem('refresh_token')
-      window.location.href = '/'
-    }
-
   return(   
     <Router>
-       <nav>
-        <button onClick={logout}>Log Out</button>
-      </nav>
       <Routes>
         <Route path='/' element={<My_library />}/>
         <Route path='/signup' element={<Signup />}/>

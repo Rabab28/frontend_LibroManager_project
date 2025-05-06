@@ -1,7 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import axios from 'axios'
-import { Link } from 'react-router'
+import { authorizedRequest } from '../lib/api'
 
 import BookForm from '../components/BookForm/BookForm'
 
@@ -20,7 +19,7 @@ function BookAdd() {
         console.log('Handle Submit is running')
         const payload = {book_title,book_author, book_year, book_no_of_pages, book_language, book_brief, book_pic_url}
         const url = 'http://127.0.0.1:8000/api/books/'
-        const response = await axios.post(url, payload)
+        const response = await authorizedRequest('book', '/books/', {book_title,book_author, book_year, book_no_of_pages, book_language, book_brief, book_pic_url})
         console.log(response)
         setBookTitle("")
         setBookAuther("")
