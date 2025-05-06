@@ -23,24 +23,27 @@ function BookList() {
     
 
     return (
-        <div>
-            <h2>My Library:</h2>
-            <Link to={`/books/new`}>
-                <button>Add new Book</button>
-            </Link>
-            <ul>
-                {books.map(book => {
-                    return(
-                        <li key={book.id}>
-                            <p>{book.book_pic_url}</p>
-                            <Link to={`/books/${book.id}`}>{book.book_title}</Link>
-                            <p>{book.book_author}</p>
-                        </li>
-                    )
-                })}
-            </ul>
-        </div>
-  )
+        
+        <>
+        <h1 className="title">My Library</h1>
+        <Link to={`/books/new`}>
+            <button className='btn'>Add New Book</button>
+        </Link>
+            <div className="page-center">                            
+                    <ul>
+                        {books.map(book => {
+                            return(
+                            <div key={book.id} className='container'>
+                                <p>{book.book_pic_url}</p>
+                                <Link to={`/books/${book.id}`} className='navbar-link'>{book.book_title}</Link>
+                                <p className='subtitle'>The Author: {book.book_author}</p> 
+                            </div>
+                            )
+                        })}
+                    </ul>                             
+            </div>
+        </>
+    )
 }
 
 export default BookList

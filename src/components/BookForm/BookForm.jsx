@@ -1,11 +1,13 @@
 import React from "react";
+import { Link } from "react-router";
 
 function BookForm(props){
     return (
-        <div>
-            <h3>{props.titleVerb} The Book:</h3>
-            <form onSubmit={props.handleSubmit}>
-                <div>
+        <div className="page-center">
+            <div className="container">
+            <h3 className="title">{props.titleVerb} The Book:</h3>
+            <form className="form" onSubmit={props.handleSubmit}>
+                <div className="form-field">
                     <label htmlFor="book_title">The Title:</label>
                     <input 
                         id="book_title"
@@ -15,17 +17,17 @@ function BookForm(props){
                         onChange={(event => props.setBookTitle(event.target.value))}
                     />
                 </div>
-                <div>
+                <div className="form-field">
                     <label htmlFor="book_author">The Author:</label>
                     <input 
                         id="book_author"
                         name="book_author"
                         required
                         value={props.book_author}
-                        onChange={(event => props.setBookAuther(event.target.value))}
+                        onChange={(event => props.setBookAuthor(event.target.value))}
                     />
                 </div>
-                <div>
+                <div className="form-field">
                     <label htmlFor="book_year">Publish Year:</label>
                     <input 
                         id="book_year"
@@ -35,7 +37,7 @@ function BookForm(props){
                         onChange={(event => props.setBookYear(event.target.value))}
                     />
                 </div>
-                <div>
+                <div className="form-field">
                     <label htmlFor="book_no_of_pages">Number of pages:</label>
                     <input 
                         id="book_no_of_pages"
@@ -45,7 +47,7 @@ function BookForm(props){
                         onChange={(event => props.setBookNoOfPages(event.target.value))}
                     />
                 </div>
-                <div>
+                <div className="form-field">
                     <label htmlFor="book_language">Book Language:</label>
                     <input 
                         id="book_language"
@@ -55,7 +57,7 @@ function BookForm(props){
                         onChange={(event => props.setBookLanguage(event.target.value))}
                     />
                 </div>
-                <div>
+                <div className="form-field">
                     <label htmlFor="book_brief">Brief:</label>
                     <input 
                         id="book_brief"
@@ -65,7 +67,7 @@ function BookForm(props){
                         onChange={(event => props.setBookBrief(event.target.value))}
                     />
                 </div>
-                <div>
+                <div className="form-field">
                     <label htmlFor="book_pic_url">Book cover:</label>
                     <input 
                         id="book_pic_url"
@@ -75,8 +77,12 @@ function BookForm(props){
                         onChange={(event => props.setBookPicUrl(event.target.value))}
                     />
                 </div>
-                <button type="submit">Submit</button>
+                <button className="btn" type="submit">Submit</button>
+                <Link to={"/"}>
+                    <button className="btn" type="submit">Cancel</button>
+                </Link>
             </form>
+        </div>    
         </div>    
     )
 }

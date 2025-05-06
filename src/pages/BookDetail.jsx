@@ -3,6 +3,8 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate, Link } from 'react-router'
 import { authorizedRequest } from '../lib/api'
+import Navbar from '../components/Navbar'
+import '../styles/global.css'
 
 function BookDetail() {
     const {id} = useParams() // Take the id from the url
@@ -52,57 +54,45 @@ function BookDetail() {
         setDeleteConfirm(true)
     }
 
-    // const handelAddBookToReadingList = ()=> {
-    //     axios.post(`http://127.0.0.1:8000/api/books/add-to-reading-list/${id}/`, {status: status})
-    //     .then(responce => {
-    //         alert(responce.data.message)
-    //         // navigate('/books/reading-list/')
-    //     })
-    //     .catch(error => {
-    //         console.error('Something went wrong during add the book', error)
-    //         if (error.responce && error.responce.status === 409) {
-    //             alert("The book is already exist in the reading list")
-    //         } else {
-    //             alert("Something went wrong during add the book")
-    //         }
-    //         navigate('/books/reading-list/')
-    //     }
-    //     )
-    // }
-
-
-    if (errorMsg) return <h1>{errorMsg}</h1>
-    if(!book) return <h1>Loading your Book...</h1>
+    if (errorMsg) return <h1 className='title'>{errorMsg}</h1>
+    if(!book) return <h1 className='title'>Loading your Book...</h1>
 
   return (
-    <div>
-        <h2>Book Detail:</h2>
+    <>
+      <Navbar />
+      <div className="page-center">
+        <div className="container">
+        <h2 className='title'>Book Detail:</h2>
         <p>{book.book_pic_url}</p>
-        <p>{book.book_title}</p>
-        <p>{book.book_auther}</p>
+        <h2>{book.book_title}</h2>
+        <p className='subtitle'>The author:</p>
+        <p>{book.book_author}</p>
+        <p className='subtitle'>Year of publish:</p>
         <p>{book.book_year}</p>
+        <p className='subtitle'>No.of pages:</p>
         <p>{book.book_no_of_pages}</p>
+        <p className='subtitle'>The language:</p>
         <p>{book.book_language}</p>
+        <p className='subtitle'>The brief:</p>
         <p>{book.book_brief}</p>
         {
             deleteConfirm
             ?
-            <button onClick={deleteBook}>Are You sure?</button>
+            <button className='btn' onClick={deleteBook}>Are You sure?</button>
             :
-            <button onClick={ConfirmDeleteBook}>Delete</button>
+            <button className='btn' onClick={ConfirmDeleteBook}>Delete</button>
         }
-
-        {/* <AddToReadingList pk={id} onBookAdded={handelAddBookToReadingList}/> */}
-            {/* <button onClick={handelAddBookToReadingList}>Add To My Reading List</button> */}
 
         {/* Got it from https://bobbyhadz.com/blog/react-button-link */}
         <Link to={`/books/${id}/edit`}>
-            <button>Edit</button>
+            <button className='btn'>Edit</button>
         </Link>
         <Link to={`/`}>
-            <button>Return</button>
+            <button className='btn'>Return</button>
         </Link>
     </div>
+    </div>
+    </>
   )
 }
 

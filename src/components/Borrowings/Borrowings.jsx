@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { authorizedRequest } from '../../lib/api';
+import { Link } from 'react-router';
 
 const Borrowings = () => {
     const [books, setBooks] = useState([]);
@@ -8,14 +10,21 @@ const Borrowings = () => {
     const [borrowDate, setBorrowDate] = useState('');
     const [message, setMessage] = useState('');
 
+    // Get the list of the books
+    async function getBookData() {
+        try{
+            const response = await authorizedRequest('get',`/books/`)
+            setBooks(response.data)
+        }catch(error){
+            console.error('Error fetching books:', error)
+        }
+    }
     useEffect(() => {
-        // Get the list of the books
-        axios.get('http://127.0.0.1:8000/api/books/')
-            .then(response => setBooks(response.data))
-            .catch(error => console.error('Error fetching books:', error));
+        getBookData()
     }, []);
 
-    const handleSubmit = (event) => {
+
+    async function handleSubmit(event){
         event.preventDefault();
         const newBorrowing = {
             book: selectedBook,
@@ -23,23 +32,22 @@ const Borrowings = () => {
             borrow_date: borrowDate,
         };
 
-        axios.post('http://127.0.0.1:8000/api/borrowings/', newBorrowing)
-            .then(response => {
+        const response = await authorizedRequest('borrowings', 'borrowings', newBorrowing)
+            console.log(response)
                 setMessage('The borrowing added successfully!');
                 setSelectedBook('');
                 setBorrowerName('');
                 setBorrowDate('');
-                setTimeout(() => setMessage(''), 3000); // Hide the message after 3 seconds
-            })
-            .catch(error => setMessage('An error occurred while adding the borrowing.'));
-    };
+                setTimeout(() => setMessage(''), 3000); // Hide the message after 3 seconds        
+            };
 
     return (
-        <div>
-            <h2>Add a book borrwoing</h2>
+        <div className="page-center">
+        <div className="container">
+            <h2 className='title'>Add a book borrowing</h2>
             {message && <p>{message}</p>}
-            <form onSubmit={handleSubmit}>
-                <div>
+            <form className="form" onSubmit={handleSubmit}>
+                <div className="form-field">
                     <label htmlFor="book">The book: </label>
                     <select
                         id="book"
@@ -53,7 +61,7 @@ const Borrowings = () => {
                         ))}
                     </select>
                 </div>
-                <div>
+                <div className="form-field">
                     <label htmlFor="borrowerName">Borrower's name:</label>
                     <input
                         type="text"
@@ -63,7 +71,7 @@ const Borrowings = () => {
                         required
                     />
                 </div>
-                <div>
+                <div className="form-field">
                     <label htmlFor="borrowDate">Borrowing date:</label>
                     <input
                         type="date"
@@ -73,9 +81,13 @@ const Borrowings = () => {
                         required
                     />
                 </div>
-                <button type="submit">Add</button>
+                <button className="btn" type="submit">Add</button>
+                <Link to={"/borrowings-list"}>
+                    <button className="btn" type="submit">Cancel</button>
+                </Link>  
             </form>
         </div>
+    </div>
     );
 };
 

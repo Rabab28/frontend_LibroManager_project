@@ -43,7 +43,6 @@ function BookEdit() {
   }
   return (
     <div>
-      <h2>Edit your Book:</h2>
         <BookForm 
           book_title={book_title}
           setBookTitle={setBookTitle}

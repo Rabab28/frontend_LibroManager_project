@@ -16,13 +16,12 @@ function BookAdd() {
 
     async function handleSubmit(event){
         event.preventDefault()
-        console.log('Handle Submit is running')
         const payload = {book_title,book_author, book_year, book_no_of_pages, book_language, book_brief, book_pic_url}
         const url = 'http://127.0.0.1:8000/api/books/'
         const response = await authorizedRequest('book', '/books/', {book_title,book_author, book_year, book_no_of_pages, book_language, book_brief, book_pic_url})
         console.log(response)
         setBookTitle("")
-        setBookAuther("")
+        setBookAuthor("")
         setBookYear("")
         setBookNoOfPages("")
         setBookLanguage("")
@@ -32,7 +31,6 @@ function BookAdd() {
 
     return (
         <div>
-            <h2>Book Add</h2>
             <BookForm 
                 book_title={book_title}
                 setBookTitle={setBookTitle}

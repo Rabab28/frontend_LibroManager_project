@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router';
 import { authorizedRequest } from '../lib/api';
+import Navbar from '../components/Navbar'
+import '../styles/global.css'
 
 const BorrowingList = () => {
     const [borrowings, setBorrowings] = useState([]);
@@ -15,7 +17,7 @@ const BorrowingList = () => {
             setBorrowings(response.data);
             setLoading(false);
         } catch (err) {
-            console.error('Error fetching posts:', err)
+            console.error('Error fetching borrowings:', err)
             setLoading(false);
         }
     }
@@ -40,42 +42,44 @@ const BorrowingList = () => {
     }
 
     if (loading) {
-        return <p>Loading borrowing list...</p>;
+        return <p className='title'>Loading borrowing list...</p>;
     }
 
     if (error) {
-        return <p>Error loading borrowing list: {error.message}</p>;
+        return <p className='title'>Error while loading borrowing list: {error.message}</p>;
     }
 
     return (
-        <div>
-            <h2>List of borrowings: </h2>
+        <>
+        <Navbar />
+        <h2 className='title'>Borrowings List</h2>
+        <div className="page-center">
             {borrowings.length === 0 ? (
-                <p>There are currently no borrowings.</p>
+                <p className='subtitle'>There are currently no borrowings.</p>
             ) : (
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Book Title:</th>
-                            <th>Borrower's Name:</th>
-                            <th>Borrow Date:</th>
-                            <th> </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {borrowings.map(borrowing => (
-                            <tr key={borrowing.id}>
-                                <td>{borrowing.book_detail ? borrowing.book_detail.book_title :'Unavailable'}</td>
-                                <td>{borrowing.borrower_name}</td>
-                                <td>{new Date(borrowing.borrow_date).toLocaleDateString()}</td>
-                                <td><Link to={`/edit-borrowings/${borrowing.id}`}>
-                                <button>Edit</button></Link>     <button onClick={()=> handelDeleteBorrowing(borrowing.id)}>Delete</button></td> 
-                            </tr>
+                <div>                            
+                    {borrowings.map(borrowing => (
+                        <div key={borrowing.id} className='container'>
+                            <p className='subtitle'>The Book:</p>
+                            <p>{borrowing.book_detail ? borrowing.book_detail.book_title :'Unavailable'}</p>
+                            <p className='subtitle'>The borrower:</p>
+                            <p>{borrowing.borrower_name}</p>
+                            <p className='subtitle'>Borrow date:</p>
+                            <p>{new Date(borrowing.borrow_date).toLocaleDateString()}</p>
+                            <p><Link to={`/edit-borrowings/${borrowing.id}`}>
+                            <button className='btn'>Edit</button></Link>
+                            <button className='btn' onClick={()=> handelDeleteBorrowing(borrowing.id)}>Delete</button></p>
+                            <Link to={"/"}>
+                                <button className="btn" type="submit">Return</button>
+                            </Link>
+                        </div>
                         ))}
-                    </tbody>
-                </table>
+                </div>
             )}
+            
         </div>
+        
+        </>
     );
 };
 

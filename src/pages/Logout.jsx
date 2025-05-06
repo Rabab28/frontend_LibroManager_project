@@ -13,7 +13,7 @@ function Logout() {
         
     }, [navigate])
 
-    return <p>Logging out...</p>
+    return <p className='title'>Logging out...</p>
 }
 
 export default Logout

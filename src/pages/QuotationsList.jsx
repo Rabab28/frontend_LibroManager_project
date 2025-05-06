@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router';
 import { authorizedRequest } from '../lib/api';
+import Navbar from '../components/Navbar'
+import '../styles/global.css'
 
 const QuotationsList = () => {
     const [quotations, setQuotations] = useState([]);
@@ -39,40 +41,40 @@ const QuotationsList = () => {
       }
 
     if (loading) {
-        return <p>Loading quotations list...</p>;
+        return <p className='title'>Loading quotations list...</p>;
     }
 
     if (error) {
-        return <p>Error loading quotations list: {error.message}</p>;
+        return <p className='title'>Error loading quotations list: {error.message}</p>;
     }
 
     return (
-        <div>
-            <h2>List of quotations: </h2>
+        <>
+        <Navbar />
+        <h2 className='title'>List of quotations:</h2>
+        <div className="page-center">
             {quotations.length === 0 ? (
-                <p>There are currently no quotations.</p>
+                <p className='subtitle'>There are currently no quotations.</p>
             ) : (
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Book Title:</th>
-                            <th>Quote Text:</th>
-                            <th> </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {quotations.map(quotation => (
-                            <tr key={quotation.id}>
-                                <td>{quotation.book_detail ? quotation.book_detail.book_title :'Unavailable'}</td>
-                                <td>{quotation.quote_text}</td>
-                                <td><Link to={`/edit-quotations/${quotation.id}`}>
-                                <button>Edit</button></Link>     <button onClick={()=> handelDeleteQuotation(quotation.id)}>Delete</button></td> 
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                <div>
+                    {quotations.map(quotation => (
+                        <div key={quotation.id} className='container'>
+                            <p className='subtitle'>The book title:</p>
+                            <p>{quotation.book_detail ? quotation.book_detail.book_title :'Unavailable'}</p>
+                            <p className='subtitle'>Quotation Text:</p>
+                            <p>{quotation.quote_text}</p>
+                            <p><Link to={`/edit-quotations/${quotation.id}`}>
+                            <button className='btn'>Edit</button></Link>
+                            <button className='btn' onClick={()=> handelDeleteQuotation(quotation.id)}>Delete</button></p> 
+                            <Link to={"/"}>
+                                <button className="btn" type="submit">Return</button>
+                            </Link>
+                        </div>
+                    ))}        
+                </div>
             )}
         </div>
+        </>
     );
 };
 
