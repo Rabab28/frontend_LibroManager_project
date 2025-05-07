@@ -52,6 +52,9 @@ const QuotationsList = () => {
         <>
         <Navbar />
         <h2 className='title'>List of quotations:</h2>
+        <Link to={"/quotations"}>
+            <button className="btn" type="submit">Add quotation</button>
+        </Link>
         <div className="page-center">
             {quotations.length === 0 ? (
                 <p className='subtitle'>There are currently no quotations.</p>

@@ -13,7 +13,7 @@ const Borrowings = () => {
     // Get the list of the books
     async function getBookData() {
         try{
-            const response = await authorizedRequest('get',`/books/`)
+            const response = await authorizedRequest('get','/books/')
             setBooks(response.data)
         }catch(error){
             console.error('Error fetching books:', error)
@@ -30,15 +30,14 @@ const Borrowings = () => {
             book: selectedBook,
             borrower_name: borrowerName,
             borrow_date: borrowDate,
-        };
-
-        const response = await authorizedRequest('borrowings', 'borrowings', newBorrowing)
+        }
+        const response = await authorizedRequest('post', '/borrowings/', newBorrowing)
             console.log(response)
-                setMessage('The borrowing added successfully!');
-                setSelectedBook('');
-                setBorrowerName('');
-                setBorrowDate('');
-                setTimeout(() => setMessage(''), 3000); // Hide the message after 3 seconds        
+            setMessage('The borrowing added successfully!');
+            setSelectedBook('');
+            setBorrowerName('');
+            setBorrowDate('');
+            setTimeout(() => setMessage(''), 3000); // Hide the message after 3 seconds        
             };
 
     return (
@@ -82,9 +81,7 @@ const Borrowings = () => {
                     />
                 </div>
                 <button className="btn" type="submit">Add</button>
-                <Link to={"/borrowings-list"}>
-                    <button className="btn" type="submit">Cancel</button>
-                </Link>  
+                <Link to={'/borrowings-list'}><button className="btn" type="submit">Cancel</button></Link>
             </form>
         </div>
     </div>

@@ -199,6 +199,7 @@ body {
 .signup-login-link:hover {
     color: #fa6800;
 }
+
 .card {
     margin-bottom: 15px;
     padding: 15px;
@@ -207,6 +208,14 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-color: white;
 }
+.book-cover-image {
+    max-width: 300px;
+    max-height: 500px;
+    margin-bottom: 10px; /* لإضافة مساحة بين الصورة وحقل اختيار الملف */
+    border: 1px solid #ccc; /* لإضافة حد خفيف (اختياري) */
+    border-radius: 5px; /* لإضافة حواف دائرية خفيفة (اختياري) */
+    display: block; /* لجعل الصورة تأخذ سطرًا كاملاً وتطبيق الهوامش بشكل صحيح */
+  }
 
 @media (max-width: 600px) {
     body {

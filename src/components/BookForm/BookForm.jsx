@@ -69,10 +69,12 @@ function BookForm(props){
                 </div>
                 <div className="form-field">
                     <label htmlFor="book_pic_url">Book cover:</label>
+                    <img className="book-cover-image" src={props.book_pic_url || null } />
                     <input 
                         id="book_pic_url"
                         name="book_pic_url"
                         required
+                        // type="url"
                         value={props.book_pic_url}
                         onChange={(event => props.setBookPicUrl(event.target.value))}
                     />

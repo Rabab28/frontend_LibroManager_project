@@ -63,7 +63,13 @@ function BookDetail() {
       <div className="page-center">
         <div className="container">
         <h2 className='title'>Book Detail:</h2>
-        <p>{book.book_pic_url}</p>
+        {
+                book.book_pic_url 
+                ?
+                <img className="book-cover-image" src={book.book_pic_url}/>
+                :
+                null 
+        }
         <h2>{book.book_title}</h2>
         <p className='subtitle'>The author:</p>
         <p>{book.book_author}</p>

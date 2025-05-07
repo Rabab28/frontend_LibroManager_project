@@ -53,6 +53,9 @@ const BorrowingList = () => {
         <>
         <Navbar />
         <h2 className='title'>Borrowings List</h2>
+        <Link to={"/borrowings"}>
+            <button className="btn" type="submit">Add borrowing</button>
+        </Link>
         <div className="page-center">
             {borrowings.length === 0 ? (
                 <p className='subtitle'>There are currently no borrowings.</p>

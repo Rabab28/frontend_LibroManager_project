@@ -32,11 +32,19 @@ function BookList() {
             <div className="page-center">                            
                     <ul>
                         {books.map(book => {
+                            console.log("book id in map:", book.id)
                             return(
                             <div key={book.id} className='container'>
-                                <p>{book.book_pic_url}</p>
+                                {
+                                    book.book_pic_url 
+                                    ?
+                                    <img className="book-cover-image" src={book.book_pic_url}/>
+                                    :
+                                    null 
+                                }
                                 <Link to={`/books/${book.id}`} className='navbar-link'>{book.book_title}</Link>
-                                <p className='subtitle'>The Author: {book.book_author}</p> 
+                                <p className='subtitle'>The Author:</p> 
+                                <p>{book.book_author}</p> 
                             </div>
                             )
                         })}
