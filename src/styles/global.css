@@ -99,6 +99,15 @@ body {
     padding: 1rem;
 }
 
+.page-center ul{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0;
+}
+
+
+
 .container {
     background: #fffbea;
     padding: 2.5rem 2rem 2rem 2rem;
@@ -111,6 +120,7 @@ body {
     flex-direction: column;
     align-items: center; /* Center content within the container */
     margin-top: 20px;
+    margin: 10px;
 }
 
 .illustration img {
@@ -211,10 +221,10 @@ body {
 .book-cover-image {
     max-width: 300px;
     max-height: 500px;
-    margin-bottom: 10px; /* لإضافة مساحة بين الصورة وحقل اختيار الملف */
-    border: 1px solid #ccc; /* لإضافة حد خفيف (اختياري) */
-    border-radius: 5px; /* لإضافة حواف دائرية خفيفة (اختياري) */
-    display: block; /* لجعل الصورة تأخذ سطرًا كاملاً وتطبيق الهوامش بشكل صحيح */
+    margin-bottom: 10px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    display: block; 
   }
 
 @media (max-width: 600px) {
